@@ -11,30 +11,16 @@
 AEnemyBase::AEnemyBase()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
-	
-	AbilitySystemComponent = CreateDefaultSubobject<UAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
-
+	PrimaryActorTick.bCanEverTick = false;
 }
 
 // Called when the game starts or when spawned
 void AEnemyBase::BeginPlay()
 {
 	Super::BeginPlay();
-	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_GameTraceChannel1, ECR_Overlap);
-
-	if(IsValid(AbilitySystemComponent))
-	{
-		AttributeSet = AbilitySystemComponent->GetSet<UBasicAttributeSet>();
-	}
 	
+	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_GameTraceChannel1, ECR_Overlap);
 }
 
-// Called every frame
-void AEnemyBase::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-}
 
 

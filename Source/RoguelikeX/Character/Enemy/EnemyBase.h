@@ -3,11 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Character.h"
+#include "RoguelikeX/Character/BaseCharacter.h"
 #include "EnemyBase.generated.h"
 
 UCLASS()
-class ROGUELIKEX_API AEnemyBase : public ACharacter
+class ROGUELIKEX_API AEnemyBase : public ABaseCharacter
 {
 	GENERATED_BODY()
 
@@ -18,20 +18,5 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
-	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="AbilitySystem", meta=(AllowPrivateAccess="true"))
-	class UAbilitySystemComponent* AbilitySystemComponent;
-
-	virtual class UAbilitySystemComponent* GetAbilitySystemComponent() const
-	{
-		return AbilitySystemComponent;
-	}
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly,Category="AbilitySystem", meta=(AllowPrivateAccess="true"))
-	const class UBasicAttributeSet* AttributeSet;
-
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
 
 };

@@ -9,6 +9,7 @@
 #include "AbilitySystemComponent.h"
 #include "RoguelikeX/AbilitySystem/Base/BasicAttributeSet.h"
 #include "Engine/World.h"
+#include "RoguelikeX/UI/HUD/BaseHUD.h"
 
 // Sets default values
 ABaseCharacter::ABaseCharacter()
@@ -21,17 +22,23 @@ ABaseCharacter::ABaseCharacter()
 
 	AbilitySystemComponent = CreateDefaultSubobject<UAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
 
+	if(IsValid(AbilitySystemComponent))
+	{
+		AttributeSet = CreateDefaultSubobject<UBasicAttributeSet>(TEXT("AttributeSet"));
+	}
+}
+
+UAbilitySystemComponent* ABaseCharacter::GetAbilitySystemComponent() const
+{
+	return AbilitySystemComponent;
 }
 
 // Called when the game starts or when spawned
 void ABaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-
-	if(IsValid(AbilitySystemComponent))
-	{
-		AttributeSet = AbilitySystemComponent->GetSet<UBasicAttributeSet>();
-	}
+	check(AbilitySystemComponent);
+	AbilitySystemComponent->InitAbilityActorInfo(this,this);
 }
 
 
